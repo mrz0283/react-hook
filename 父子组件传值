@@ -1,0 +1,34 @@
+//  一个文件中传值
+import { useRef, createContext, useState, useContext } from 'react';
+import { Button, Input } from 'antd';
+
+const MyContext = createContext();
+
+const ChildContext = () => {
+    const count = useContext(MyContext);
+    return (
+        <>
+            <h3>子组件{count}</h3>
+        </>
+    );
+};
+
+export default () => {
+    const [count, setCount] = useState(0);
+    const inputRef = useRef(null);
+    // 保存状态
+    return (
+        <>
+            <MyContext.Provider value={count}>
+                <ChildContext />
+            </MyContext.Provider>
+            <Input ref={inputRef} />
+            <Button
+                onClick={() => {
+                    setCount(inputRef.current.state.value);
+                }}>
+                count
+            </Button>
+        </>
+    );
+};
