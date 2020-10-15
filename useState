@@ -1,0 +1,53 @@
+import React, { useState, useEffect } from 'react';
+
+function Example() {
+    // 声明一个叫 “count” 的 state 变量，0是初始值。
+    //  setCount  ===   setState count的值
+    const [count, setCount] = useState(0);
+    const [obj, setObj] = useState({ name: 'zhangsan' });
+    const [arr, setArr] = useState([1, 2, 3]);
+    const [func, setfunc] = useState(() => {
+        return { name: 'list' };
+    });
+
+    // 与componentDidMount 和 componentDidUpdate相似
+    useEffect(() => {
+        document.title = `You clicked ${count} times`;
+    });
+
+    return (
+        <div>
+            <p>You clicked {count} times</p>
+            <button
+                onClick={() => {
+                    return setCount(count + 1);
+                }}>
+                Click me
+            </button>
+            <br />
+            <p>You clicked {obj.name} times</p>
+            <button
+                onClick={() => {
+                    // value 必须为新的数据  不能为之前数据
+                    return setObj({ name: 'gao' });
+                }}>
+                Click me
+            </button>
+            <br />
+            <p>{arr}</p>
+            <button
+                onClick={() => {
+                    return setArr(() => {
+                        arr.push(4);
+                        return [...arr];
+                    });
+                }}>
+                Click me
+            </button>
+            <br />
+            <h2>{func.name}</h2>
+        </div>
+    );
+}
+
+export default Example;
