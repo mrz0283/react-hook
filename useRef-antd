@@ -1,0 +1,29 @@
+import { useRef } from 'react';
+import { Button, Input } from 'antd';
+
+export default () => {
+    const inputEl = useRef(null);
+    // 保存状态
+    const save = useRef({ value: '123' });
+    return (
+        <>
+            <h3>useRef</h3>
+            <Input ref={inputEl} />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <Button
+                type="primary"
+                onClick={() => {
+                    // console.log(inputEl.current.state.value);
+                    //  inputEl.current.state.value  输入框中的值
+                    save.current.value = inputEl.current.state.value;
+                    console.log(save);
+                }}>
+                获取ref
+            </Button>
+        </>
+    );
+};
