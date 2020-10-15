@@ -1,0 +1,47 @@
+import React, { useState, useEffect } from 'react';
+import { Divider, Typography, Button } from 'antd';
+
+export default () => {
+    const [count, setCount] = useState(0);
+    /*
+      #useEffect
+      1、componentDidMount componentDidUpdate 和componentWillUnmount  等价于
+      2、副作用（DOM操作 、数据请求、组件更新会执行方法）
+      3、useEffect为什么在组件内部执行？ 可以获取props和state、采用闭包形式
+      4、无阻塞更新
+      5、useEffect（回调函数，数组（可不写））
+      6、多个useEffect（）
+     */
+
+    // 初始化会执行一次  === componentDidMount
+    // 第二个参数  默认不写 === 监听所有事件   空数组 === 不监听事件  数组中带属性 === 监听改属性的变化  ======>  componentDidUpdate
+    // return 后为 componentWillUnmount时的方法
+    useEffect(() => {
+        console.log(count);
+        return () => {
+            console.log('componentWillUnmount');
+        };
+    }, []);
+
+    useEffect(() => {
+        console.log('count');
+    }, []);
+
+    return (
+        <>
+            <h2>Effect</h2>
+            <Divider />
+            <Typography variant="h1" component="p">
+                {count}
+            </Typography>
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                    return setCount(count + 1);
+                }}>
+                count
+            </Button>
+        </>
+    );
+};
