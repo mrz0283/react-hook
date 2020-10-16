@@ -1,0 +1,41 @@
+import { useEffect, useLayoutEffect, useState } from 'react';
+import { Button } from 'antd';
+
+export default () => {
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        console.log('useEffect');
+        return () => {
+            console.log('useEffect-return');
+        };
+    });
+
+    useLayoutEffect(() => {
+        console.log('useLayoutEffect');
+        return () => {
+            console.log('useLayoutEffect-return');
+        };
+    });
+
+    return (
+        <>
+            <h3>useLayoutEffect</h3>
+            <h3>{count}</h3>
+            <Button
+                onClick={() => {
+                    setCount(count + 1);
+                }}>
+                useLayoutEffect
+            </Button>
+        </>
+    );
+};
+
+/*
+    useLayoutEffect
+    和useEffect作用一样，在组件生成过程中考科一做一些操作
+
+    不同
+    1、执行时间不同，useEffect是在componentDidMount以后执行，useLayoutEffect是在浏览器执行绘制之前执行（会阻塞组件挂载,慎用）
+*/
