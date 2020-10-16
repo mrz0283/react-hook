@@ -1,0 +1,47 @@
+import { useState, useCallback } from 'react';
+import { Button } from 'antd';
+
+export default () => {
+    const [count, setCount] = useState(0);
+    const [num, setNum] = useState(0);
+
+    const callback = useCallback(() => {
+        console.log(count);
+        return count;
+    }, [num]);
+    // 保存状态
+    return (
+        <>
+            <h3>状态count{count}</h3>
+            <h3>状态num{num}</h3>
+            <h3>callback:{callback()}</h3>
+            <Button
+                onClick={() => {
+                    setCount(count + 1);
+                }}>
+                count
+            </Button>
+            <Button
+                onClick={() => {
+                    setNum(num + 1);
+                }}>
+                num
+            </Button>
+        </>
+    );
+};
+/*
+    # useCallback
+    作用避免组件重复渲染，提高性能（useMemo）
+    可以控制组件什么时候更新
+
+    同样用缓存技术，和useMemo不同的是
+    useCallback缓存的是函数，是个函数就可以执行
+
+    useCallback() 有两个参数 第一个是函数 第二个是数组
+    useCallback(()=>{},[可以不写])
+
+    const callback = useCallback(()=>{},[]);
+    callback是个函数可以直接callback()执行
+
+*/
