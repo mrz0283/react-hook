@@ -1,0 +1,56 @@
+/* useReducer */
+/*
+    1、useReducer和redux中的Reducer是一样的，useReducer就是个函数
+    2、useReducer() 是个函数，有3个参数 第一个位reducer，第二个是初始值，第三个参数是init
+    3、useReducer() 返回值是一个数组，第一个是state dispatch
+    4、const [ state,dispatch ] = useReducer(reducer,初始值)
+ */
+import React, { useReducer } from 'react';
+import { Button } from 'antd';
+
+export default () => {
+    const [state, dispatch] = useReducer(
+        (state, action) => {
+            switch (action.type) {
+                case 'setname': {
+                    return {
+                        ...state,
+                        name: action.name,
+                    };
+                }
+                case 'setage': {
+                    return {
+                        ...state,
+                        age: action.age,
+                    };
+                }
+                default:
+                    return state;
+            }
+        },
+        { name: '张三', age: 18 },
+    );
+    return (
+        <div>
+            <h1>
+                姓名{state.name},age{state.age}
+            </h1>
+            <Button
+                onClick={() => {
+                    return dispatch({ type: 'setname', name: '李四' });
+                }}>
+                setName
+            </Button>
+            <Button
+                onClick={() => {
+                    return dispatch({ type: 'setage', age: 50 });
+                }}>
+                setAge
+            </Button>
+        </div>
+    );
+};
+
+
+
+================================================================================================
