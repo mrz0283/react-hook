@@ -1,0 +1,26 @@
+import { forwardRef, useRef } from 'react';
+import { Button } from 'antd';
+
+const Forward = forwardRef((props, ref) => {
+    return (
+        <>
+            <h3 ref={ref}>123</h3>
+            <h4>456</h4>
+        </>
+    );
+});
+
+export default () => {
+    const h3El = useRef(null);
+    return (
+        <>
+            <Forward ref={h3El} />
+            <Button
+                onClick={() => {
+                    console.log(h3El.current);
+                }}>
+                DOM
+            </Button>
+        </>
+    );
+};
