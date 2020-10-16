@@ -1,0 +1,56 @@
+import { forwardRef, useRef, useImperativeHandle, useState } from 'react';
+import { Button } from 'antd';
+
+const ImperativeHandle = forwardRef((props, ref) => {
+    const inputRef = useRef(null);
+    const [count, setCount] = useState(0);
+    const [num, setNum] = useState(0);
+    useImperativeHandle(
+        ref,
+        () => {
+            return {
+                name: 'zhangsan',
+                focus: () => {
+                    inputRef.current.focus();
+                },
+                count,
+            };
+        },
+        [num],
+    );
+    return (
+        <>
+            <h3>子组件count-----{count}</h3>
+            <h3>子组件num-----{num}</h3>
+            <input ref={inputRef} type="text" />
+            <Button
+                onClick={() => {
+                    setCount(count + 1);
+                }}>
+                count
+            </Button>
+            <Button
+                onClick={() => {
+                    setNum(num + 1);
+                }}>
+                num
+            </Button>
+        </>
+    );
+});
+
+export default () => {
+    const el = useRef(null);
+    return (
+        <>
+            <ImperativeHandle ref={el} />
+            <Button
+                onClick={() => {
+                    console.log(el);
+                    el.current.focus();
+                }}>
+                DOM
+            </Button>
+        </>
+    );
+};
